@@ -9,6 +9,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [emailId, setEmailId] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
 
     const handleLogin = async (e) => {
@@ -23,6 +24,7 @@ const Login = () => {
             dispatch(addUser(res.data));
             navigate("/feed")
         } catch (err) {
+            setError(err?.response?.data);
             console.error(err);
         }
     }
@@ -61,8 +63,9 @@ const Login = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 placeholder='Enter password'
-                                className=' px-2 py-2 col-span-2 bg-gray-800 border border-neutral-400 rounded-md p-1'
+                                className=' px-2 pt-2 col-span-2 bg-gray-800 border border-neutral-400 rounded-md p-1'
                             />
+                            {error && <div className='text-red-500 col-span-2 my-2'>{error}</div>}
                         </div>
                         <button type='submit' className='bg-sky-700 rounded-lg py-2 text-md w-1/5'>Login</button>
                     </form>

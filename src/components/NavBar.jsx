@@ -1,10 +1,26 @@
+import axios from 'axios';
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_HOST } from '../utils/constants';
+import { removeUser } from '../utils/userSlice';
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
   const [drop, setDrop] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    try {
+      await axios.post(`${API_HOST}/logout`, {}, { withCredentials: true });
+      dispatch(removeUser());
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="navbar bg-gray-900 text-white flex justify-center items-center h-16 px-10">
       <div className="flex-1">
@@ -32,7 +48,9 @@ const NavBar = () => {
                   <Link to='/profile'>Profile</Link>
                 </li>
                 <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>Settings</li>
-                <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>Logout</li>
+                <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>
+                  <button onClick={handleLogout}>Logout</button>
+                </li>
               </ul>
             </div>
           )
