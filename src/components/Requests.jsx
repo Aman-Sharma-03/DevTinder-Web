@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { API_HOST } from '../utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { addRequest } from '../utils/requestSlice';
+import { addRequest, removeRequest } from '../utils/requestSlice';
 
 const Requests = () => {
     const dispatch = useDispatch();
@@ -16,14 +16,20 @@ const Requests = () => {
             console.log(err);
         }
     }
+    const reviewRequest = async (status, _id) => {
+        try {
+            const res = await axios.post(`${API_HOST}/request/review/${status}/${_id}`, {}, { withCredentials: true });
+            dispatch(removeRequest(_id));
+        } catch (err) {
+            console.log(err);
+        }
+    }
     useEffect(() => {
         fetchRequests();
     }, []);
-    if (!requests) {
-        return;
-    }
+    if (!requests) return;
     if (requests.length === 0) {
-        return <h1>No requests Received</h1>
+        return <h1 className='flex justify-center py-5'>No requests Received</h1>
     }
     return (
         <div className='py-10 text-white'>
@@ -43,8 +49,18 @@ const Requests = () => {
                                     <p>{about}</p>
                                 </div>
                                 <div className='flex flex-col gap-4 justify-center ml-auto mr-4'>
-                                    <button className='bg-green-600 hover:bg-green-500 p-2 rounded-lg'>Accept</button>
-                                    <button className='bg-red-600 hover:bg-red-500 p-2 rounded-lg'>Reject</button>
+                                    <button
+                                        onClick={() => reviewRequest('accepted', request._id)}
+                                        className='bg-green-600 hover:bg-green-500 p-2 rounded-lg'
+                                    >
+                                        Accept
+                                    </button>
+                                    <button
+                                        onClick={() => reviewRequest('rejected', request._id)}
+                                        className='bg-red-600 hover:bg-red-500 p-2 rounded-lg'
+                                    >
+                                        Reject
+                                    </button>
                                 </div>
                             </div>
                         )
