@@ -32,10 +32,10 @@ const Connections = () => {
             <h1 className='flex justify-center text-bold text-3xl my-5'>Connections</h1>
             <div className='flex flex-col items-center'>
                 {
-                    connections.map((connection) => {
+                    connections.map((connection, index) => {
                         const { firstName, lastName, photoUrl, age, about, gender } = connection;
                         return (
-                            <div className='flex gap-5 m-4 p-4 border bg-gray-800 rounded-lg w-1/2'>
+                            <div key={index} className='flex gap-5 m-4 p-4 border bg-gray-800 rounded-lg w-1/2'>
                                 <div>
                                     <img src={connection.photoUrl} alt="photo" className='w-24 rounded-full' />
                                 </div>
