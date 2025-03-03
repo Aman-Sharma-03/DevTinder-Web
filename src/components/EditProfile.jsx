@@ -134,7 +134,7 @@ const EditProfile = ({ user, toast }) => {
                     </div>
                 </div>
             </div>
-            <UserCard className="mt-10 mx-5 rounded-lg" user={{ firstName, lastName, age, about, gender, photoUrl }} />
+            <UserCard profile={false} className="mt-10 mx-5 rounded-lg" user={{ firstName, lastName, age, about, gender, photoUrl }} />
         </div >
     )
 }

@@ -13,7 +13,6 @@ const Body = () => {
     const userData = useSelector((store) => store.user);
 
     const fetchUser = async () => {
-        if (userData) navigate("/feed");
         try {
             const res = await axios(`${API_HOST}/profile/view`, { withCredentials: true });
             dispatch(addUser(res.data));
@@ -26,11 +25,12 @@ const Body = () => {
     useEffect(() => {
         if (!userData)
             fetchUser();
+        if (userData) navigate("/feed");
     }, []);
     return (
         <div>
             <NavBar />
-            <div className='bg-gray-700 h-screen'>
+            <div className='bg-gray-700 min-h-screen pb-10'>
                 <Outlet />
             </div>
             <Footer />
