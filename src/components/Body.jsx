@@ -13,7 +13,7 @@ const Body = () => {
     const userData = useSelector((store) => store.user);
 
     const fetchUser = async () => {
-        if (userData) return;
+        if (userData) navigate("/feed");
         try {
             const res = await axios(`${API_HOST}/profile/view`, { withCredentials: true });
             dispatch(addUser(res.data));

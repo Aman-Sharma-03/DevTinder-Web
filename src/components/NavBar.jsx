@@ -24,7 +24,7 @@ const NavBar = () => {
   return (
     <div className="navbar bg-gray-900 text-white flex justify-center items-center h-16 px-10">
       <div className="flex-1">
-        <Link to="/profile" className='bg-gray-800 rounded-lg p-2 px-3 hover:bg-gray-900 text-xl'>DevTinder</Link>
+        <Link to="/feed" className='bg-gray-800 rounded-lg p-2 px-3 hover:bg-gray-900 text-xl'>DevTinder</Link>
       </div>
       <div className='relative' onMouseEnter={() => setDrop(true)} onMouseLeave={() => setDrop(false)}>
         {
@@ -47,7 +47,12 @@ const NavBar = () => {
                 <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>
                   <Link to='/profile'>Profile</Link>
                 </li>
-                <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>Settings</li>
+                <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>
+                  <Link to="/connections">Connections</Link>
+                </li>
+                <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>
+                  <Link to="/requests">Requests</Link>
+                </li>
                 <li className='p-2 hover:bg-gray-600 hover:rounded-lg'>
                   <button onClick={handleLogout}>Logout</button>
                 </li>

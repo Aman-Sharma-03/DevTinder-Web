@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { API_HOST } from './../utils/constants';
 
 const Login = () => {
+    const user = useSelector((store) => store.user);
     const navigate = useNavigate();
     const [emailId, setEmailId] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (user) navigate("/feed");
+    })
 
     const handleLogin = async (e) => {
         e.preventDefault()
